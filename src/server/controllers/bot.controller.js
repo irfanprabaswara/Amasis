@@ -1,5 +1,5 @@
 // Require the node-fetch package to make HTTP requests
-const fetch = require("node-fetch");
+const fetch = require("node-fetch").default;
 
 // Replace 'YOUR_BOT_TOKEN' with the access token provided by BotFather
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -62,12 +62,10 @@ async function sendMessage(chatId, text) {
   }
 }
 
-// Sample webhook route to handle incoming messages from Telegram
-// Replace '/webhook' with your desired endpoint path
-app.post("/webhook", (req, res) => {
+module.exports = (req, res) => {
   const message = req.body.message;
   if (message) {
     handleMessage(message);
   }
   res.status(200).send("OK");
-});
+};
